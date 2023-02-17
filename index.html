@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="./script.js"></script>
+
+    <title>GPSS DIAGRAMS</title>
+  </head>
+  <body>
+    <table border="1" cellpadding="0" width="100%">
+        <tr>
+            <th width="30%">
+                
+                <textarea id="textarea" style=" width: 95%; min-height: 400px; min-width: 95%; max-width: 95%">
+EXAMPLE:
+GENERATE 20,10
+TRANSFER .75,,REPAIR
+ENTER AUTOS,1
+QUEUE CARS,2
+SEIZE TEC
+ADVANCE 17,8
+RELEASE TEC
+DEPART CARS,2
+LEAVE AUTOS,1
+TERMINATE
+
+REPAIR
+ENTER AUTOS,1
+QUEUE CARS,2
+SEIZE REP
+ADVANCE 45,15
+RELEASE REP
+DEPART CARS,2
+LEAVE AUTOS,1
+TERMINATE
+
+GENERATE 2400
+TERMINATE 1</textarea>
+                <button type="submit" id="submit">Подтвердить</button>
+            </th>
+            <th>
+                <canvas id="canvas" style="background: #F0F0F0;" >
+                </canvas>
+            </th>
+        </tr>   
+
+
+
+    </table>
+  </body>
+</html>
