@@ -6,6 +6,28 @@ window.onload = function() {
     resizeCanvas();
     var text1 = ""
     var y = 0;
+    var images = []
+    function preload() {
+        for (var i = 0; i < arguments.length; i++) {
+            images[i] = new Image();
+            images[i].src = preload.arguments[i];
+        }
+    }
+    
+    preload(
+        "./images/ADVANCE.png",
+        "./images/DEPART.png",
+        "./images/ENTER.png",
+        "./images/GENERATE.png",
+        "./images/TERMINATE.png",
+        "./images/QUEUE.png",
+        "./images/SEIZE.png",
+        "./images/RELEASE.png",
+        "./images/LEAVE.png",
+        "./images/TRANSFER.png"
+    )
+
+
 
     keywords = ["GENERATE","TERMINATE","QUEUE","DEPART","ADVANCE","SEIZE","RELEASE","ENTER","LEAVE","TRANSFER"]
 
@@ -66,13 +88,15 @@ window.onload = function() {
         }
         canvas.height = resize;
         delete(size_elem);
+        elem = new Image();
         //Заполнение canvas
         for(let i =0; i< splits.length; i++){
-            var elem = new Image(); 
+            //var elem = new Image(); 
             var words = splits[i].split(" ")
             //console.log(words)
             if (keywords.includes(words[0])){
                 elem.src = "./images/"+words[0]+".png"
+                
                 context.drawImage(elem,100,y)
                 
                 switch(words[0]){
@@ -183,9 +207,10 @@ window.onload = function() {
                 y += 20
 
             }
-            delete(elem)
+            
             
         }
+        delete(elem)
 
     }
     
