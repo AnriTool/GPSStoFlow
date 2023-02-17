@@ -40,9 +40,6 @@ window.onload = function() {
 
 
     function drawFromText(){
-
-        context.fillRect(0, 0, canvas.width, canvas.height)
-
         text1 = document.getElementById('textarea').value; 
         
         //refil
@@ -52,31 +49,32 @@ window.onload = function() {
 
         //делю на строки
         var splits = text1.split(/\r?\n/);
-        console.log(splits);
+        //console.log(splits);
         
         //Создаю canvas нужного размера
         var resize = 10
+        size_elem = new Image()
         for(let i =0; i< splits.length; i++){
-            elem = new Image(); 
             var words = splits[i].split(" ")
             if (keywords.includes(words[0])){
-                elem.src = "./images/"+words[0]+".png"
-                resize += elem.height
+                size_elem.src = "./images/"+words[0]+".png"
+                resize += size_elem.height
             }
             else
                 resize += 40
-                canvas.height = resize;
+              
         }
-
+        canvas.height = resize;
+        delete(size_elem);
         //Заполнение canvas
         for(let i =0; i< splits.length; i++){
-            elem = new Image(); 
+            var elem = new Image(); 
             var words = splits[i].split(" ")
             //console.log(words)
             if (keywords.includes(words[0])){
                 elem.src = "./images/"+words[0]+".png"
                 context.drawImage(elem,100,y)
-
+                
                 switch(words[0]){
                     case "GENERATE":
                         context.font = "14px Tahoma"
@@ -185,6 +183,7 @@ window.onload = function() {
                 y += 20
 
             }
+            delete(elem)
             
         }
 
