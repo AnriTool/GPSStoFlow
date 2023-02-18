@@ -79,6 +79,12 @@ window.onload = function() {
                 size_elem.src = "./images/"+words[0]+".png"
                 resize += size_elem.height
             }
+            else if(keywords.includes(words[1])){
+                context.fillText(words[0], 103, y)
+                resize += 40
+                size_elem.src = "./images/"+words[1]+".png"
+                resize += size_elem.height 
+            }
             else
                 
                 resize += 40
@@ -95,7 +101,7 @@ window.onload = function() {
             if (keywords.includes(words[0])){
                 elem.src = "./images/"+words[0]+".png"
                 context.drawImage(elem,100,y)
-                drawParams(words,0)
+                drawParams(words,0,elem)
                 y += elem.height 
             }
             //Заполнение если первое слово - Метка, а второе - ключевое
@@ -109,7 +115,8 @@ window.onload = function() {
                 elem.src = "./images/"+words[1]+".png"
                 
                 context.drawImage(elem,100,y)
-                drawParams(words,1)
+                drawParams(words,1,elem)
+                y += elem.height 
             }
             else {
                 context.textAlign = "start";
@@ -126,9 +133,9 @@ window.onload = function() {
     }
     
 
-    function drawParams(words,offset){
+    function drawParams(words,offset,elem){
                 
-                switch(words[0]){
+                switch(words[0+offset]){
                     case "GENERATE":
                         context.font = "14px Tahoma"
                         context.textAlign = "center";
@@ -140,30 +147,30 @@ window.onload = function() {
                     case "TERMINATE":
                         context.font = "14px Tahoma"
                         context.textAlign = "center";
-                        if  (words.length > 1)
+                        if  (words.length > 1+offset)
                             context.fillText(words[1+offset], 217, y + elem.height/2 - 6)
                         break;
 
                     case "QUEUE":
-                        var params = words[1].split(",")
+                        var params = words[1+offset].split(",")
                         context.font = "10px Tahoma"
                         context.textAlign = "start";
-                        context.fillText(params[0+offset], 225, y + 36)
+                        context.fillText(params[0], 225, y + 36)
                         if (params.length > 1){
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[1+offset], 164, y + elem.height/2)}
+                            context.fillText(params[1], 164, y + elem.height/2)}
                         break;
 
                     case "DEPART":
-                        var params = words[1].split(",")
+                        var params = words[1+offset].split(",")
                         context.font = "10px Tahoma"
                         context.textAlign = "start";
-                        context.fillText(params[0+offset], 225, y + 17)
+                        context.fillText(params[0], 225, y + 17)
                         if (params.length > 1){
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[1+offset], 164, y + elem.height/2)}
+                            context.fillText(params[1], 164, y + elem.height/2)}
                         break;
 
                     case "RELEASE":
@@ -185,44 +192,45 @@ window.onload = function() {
                         break;
 
                     case "ENTER":
-                        var params = words[1].split(",")
+                        var params = words[1+offset].split(",")
+                        console.log(params)
                         context.font = "10px Tahoma"
                         context.textAlign = "start";
-                        context.fillText(params[0+offset], 225, y + 41)
+                        context.fillText(params[0], 225, y + 41)
                         if (params.length > 1){
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[1+offset], 164, y + elem.height/2)}
+                            context.fillText(params[1], 164, y + elem.height/2)}
                         break;
                     
                     case "LEAVE":
-                        var params = words[1].split(",")
+                        var params = words[1+offset].split(",")
                         context.font = "10px Tahoma"
                         context.textAlign = "start";
-                        context.fillText(params[0+offset], 225, y + 12)
+                        context.fillText(params[0], 225, y + 12)
                         if (params.length > 1){
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[1+offset], 164, y + elem.height/2)}
+                            context.fillText(params[1], 164, y + elem.height/2)}
                         break;
                     
                     case "TRANSFER":
-                        var params = words[1].split(/[\s,]+/)
+                        var params = words[1+offset].split(/[\s,]+/)
                         if (params[2+offset] == undefined){
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[0+offset], 164, y + elem.height/2)
+                            context.fillText(params[0], 164, y + elem.height/2)
                             context.textAlign = "start";
-                            context.fillText(params[1+offset], 225, y + elem.height/2 - 20)
+                            context.fillText(params[1], 225, y + elem.height/2 - 20)
                         }
                         else    {
                             context.font = "14px Tahoma"
                             context.textAlign = "center";
-                            context.fillText(params[0+offset], 164, y + elem.height/2)
+                            context.fillText(params[0], 164, y + elem.height/2)
                             context.textAlign = "start";
-                            context.fillText(params[2+offset], 225, y + elem.height/2 - 20)
+                            context.fillText(params[2], 225, y + elem.height/2 - 20)
                             context.textAlign = "end";
-                            context.fillText(params[1+offset], 155, y + elem.height - 10)
+                            context.fillText(params[1], 155, y + elem.height - 10)
                         }
                     ///
                 }
