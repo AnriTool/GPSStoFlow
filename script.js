@@ -24,12 +24,22 @@ window.onload = function() {
         "./images/SEIZE.png",
         "./images/RELEASE.png",
         "./images/LEAVE.png",
-        "./images/TRANSFER.png"
+        "./images/ASSIGN.png",
+        "./images/PRIORITY.png",
+        "./images/TRANSFER.png",
+        "./images/SELECT.png",
+        "./images/TEST.png",
+        "./images/ASSEMBLE.png",
+        "./images/MATCH.png",
+        "./images/GATHER.png",
+        "./images/SPLIT.png",
+        "./images/MARK.png"
     )
 
 
 
-    keywords = ["GENERATE","TERMINATE","QUEUE","DEPART","ADVANCE","SEIZE","RELEASE","ENTER","LEAVE","TRANSFER"]
+    keywords = ["GENERATE","TERMINATE","QUEUE","DEPART","ADVANCE","SEIZE","RELEASE","ENTER","LEAVE","TRANSFER","PRIORITY","ASSIGN",
+                 "SELECT","TEST","SPLIT","GATHER","ASSEMBLE","MATCH","MARK"]
 
     let display = document.querySelector('#textarea'); // Инициализировал и присвоил переменной элемент textarea 
 
@@ -75,14 +85,16 @@ window.onload = function() {
         size_elem = new Image()
         for(let i =0; i< splits.length; i++){
             var words = splits[i].split(" ")
-            if (keywords.includes(words[0])){
-                size_elem.src = "./images/"+words[0]+".png"
+            if(words[0] == '')
+                words[1] = " "
+            if (keywords.includes(words[0].toUpperCase())){
+                size_elem.src = "./images/"+words[0].toUpperCase()+".png"
                 resize += size_elem.height
             }
-            else if(keywords.includes(words[1])){
+            else if(keywords.includes(words[1].toUpperCase())){
                 context.fillText(words[0], 103, y)
                 resize += 40
-                size_elem.src = "./images/"+words[1]+".png"
+                size_elem.src = "./images/"+words[1].toUpperCase()+".png"
                 resize += size_elem.height 
             }
             else
@@ -97,22 +109,24 @@ window.onload = function() {
 
         for(let i =0; i< splits.length; i++){
             var words = splits[i].split(" ")
+            if(words[0] == '')
+                words[1] = " "
             //Заполнение если встетиолось ключевое слово
-            if (keywords.includes(words[0])){
-                elem.src = "./images/"+words[0]+".png"
+            if (keywords.includes(words[0].toUpperCase())){
+                elem.src = "./images/"+words[0].toUpperCase()+".png"
                 context.drawImage(elem,100,y)
                 drawParams(words,0,elem)
                 y += elem.height 
             }
             //Заполнение если первое слово - Метка, а второе - ключевое
-            else if(keywords.includes(words[1])){
+            else if(keywords.includes(words[1].toUpperCase())){
 
                 context.textAlign = "start";
                 context.font = "14px Tahoma"
                 y += 20
                 context.fillText(words[0], 103, y)
                 y += 20
-                elem.src = "./images/"+words[1]+".png"
+                elem.src = "./images/"+words[1].toUpperCase()+".png"
                 
                 context.drawImage(elem,100,y)
                 drawParams(words,1,elem)
@@ -135,7 +149,7 @@ window.onload = function() {
 
     function drawParams(words,offset,elem){
                 
-                switch(words[0+offset]){
+                switch(words[0+offset].toUpperCase()){
                     case "GENERATE":
                         context.font = "14px Tahoma"
                         context.textAlign = "center";
@@ -232,7 +246,78 @@ window.onload = function() {
                             context.textAlign = "end";
                             context.fillText(params[1], 155, y + elem.height - 10)
                         }
-                    ///
+                        break;
+
+                    case "PRIORITY":
+                        context.font = "12px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[1+offset], 162, y + 12)
+                        break;
+
+                    case "ASSIGN":
+                        context.font = "12px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[1+offset], 162, y + 12)
+                        break;
+                    
+                    case "SELECT":
+                        console.log(words)
+                        context.font = "12px Tahoma"
+                        context.textAlign = "end";
+                        context.fillText( words[1+offset], 122, y + 26)
+                        var params = words[2+offset].split(",")
+                        context.font = "12px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[2+offset], 164, y + elem.height/2)
+                        console.log(params)
+                        context.textAlign = "start";
+                        context.fillText(params[5], 260, y + elem.height/4)
+                        break;
+
+                    case "TEST":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText( words[1+offset], 164, y + elem.height/3 - 6)
+                        var params = words[2+offset].split(",")
+                        context.font = "14px Tahoma"
+                        context.textAlign = "end";
+                        context.fillText(params[0], 138, y + elem.height/7)
+                        context.textAlign = "start";
+                        context.fillText(params[1], 192, y + elem.height/7)
+                        context.textAlign = "start";
+                        context.fillText(params[2], 242, y + elem.height/2 - 20)
+                        break;
+
+                    case "MATCH":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "start";
+                        context.fillText(words[1+offset], 208, y + elem.height/2 - 8)
+                        break;
+
+                    case "ASSEMBLE":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[1+offset], 162, y + 10)
+                        break;
+
+                    case "SPLIT":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[1+offset], 162, y + elem.height/2 + 3 )
+                        break;
+
+                    case "GATHER":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "center";
+                        context.fillText(words[1+offset], 162, y + elem.height/2 + 3 )
+                        break;
+                        
+                    case "MARK":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "start";
+                        context.fillText(words[1+offset], 226, y + elem.height/3  )
+                        break;
+                    
                 }
             }
         

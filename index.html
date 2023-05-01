@@ -13,31 +13,29 @@
             <th width="30%" valign="top">
                 
                 <textarea id="textarea" style=" width: 95%; min-height: 400px; min-width: 95%; max-width: 95%" >
-EXAMPLE:
-GENERATE 20,10
-TRANSFER .75,,REPAIR
-ENTER AUTOS,1
-QUEUE CARS,2
-SEIZE TEC
-ADVANCE 17,8
-RELEASE TEC
-DEPART CARS,2
-LEAVE AUTOS,1
-TERMINATE
-
-REPAIR
-ENTER AUTOS,1
-QUEUE CARS,2
-SEIZE REP
-ADVANCE 45,15
-RELEASE REP
-DEPART CARS,2
-LEAVE AUTOS,1
-TERMINATE
-
-GENERATE 2400
-TERMINATE 1</textarea>
+BL1 GENERATE a,b,c,d,e,f 
+ADVANCE a,b
+QUEUE a,b
+DEPART a,b
+SEIZE a
+RELEASE a
+ENTER a,b
+LEAVE a,b
+TRANSFER a,b,c
+BL2 MARK a
+PRIORITY a
+ASSIGN a+,b 
+BL3 SELECT x a,b,c,d,e,f 
+TEST x a,b,c
+SPLIT a,b,c
+MATCH a
+ASSEMBLE a
+GATHER a
+TERMINATE a</textarea>
                 <button type="submit" id="submit">Подтвердить</button>
+                <form action="https://github.com/AnriTool/GPSStoFlow/blob/main/README.md">
+                  <button type="submit">Инфо</button>
+              </form>
             </th>
             <th>
                 <canvas id="canvas" style="background: #F0F0F0;" >
