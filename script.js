@@ -323,7 +323,7 @@ window.onload = function() {
                         context.font = "14px Tahoma"
                         context.textAlign = "center";
                         if  (words.length > 1)
-                            context.fillText(words[1+offset], 164, y + elem.height/1.5);
+                            context.fillText(words[1+offset], 164, y + elem.height/2);
                         break;
                     
                 }
