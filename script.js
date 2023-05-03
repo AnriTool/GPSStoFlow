@@ -33,13 +33,14 @@ window.onload = function() {
         "./images/MATCH.png",
         "./images/GATHER.png",
         "./images/SPLIT.png",
-        "./images/MARK.png"
+        "./images/MARK.png",
+        "./images/SAVEVALUE.png"
     )
 
 
 
     keywords = ["GENERATE","TERMINATE","QUEUE","DEPART","ADVANCE","SEIZE","RELEASE","ENTER","LEAVE","TRANSFER","PRIORITY","ASSIGN",
-                 "SELECT","TEST","SPLIT","GATHER","ASSEMBLE","MATCH","MARK"]
+                 "SELECT","TEST","SPLIT","GATHER","ASSEMBLE","MATCH","MARK","SAVEVALUE"]
 
     let display = document.querySelector('#textarea'); // Инициализировал и присвоил переменной элемент textarea 
 
@@ -316,6 +317,13 @@ window.onload = function() {
                         context.font = "14px Tahoma"
                         context.textAlign = "start";
                         context.fillText(words[1+offset], 226, y + elem.height/3  )
+                        break;
+                        
+                    case "SAVEVALUE":
+                        context.font = "14px Tahoma"
+                        context.textAlign = "center";
+                        if  (words.length > 1)
+                            context.fillText(words[1+offset], 164, y + elem.height/1.5);
                         break;
                     
                 }
