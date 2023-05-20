@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script src="./script.js"></script>
+    <script src="./blocks.js"></script>
     <link rel="icon" href="images/ava_pixel.ico" type="image/x-icon">
 
     <title>GPSStoFlow</title>
@@ -31,11 +32,17 @@ SPLIT a,b,c
 MATCH a
 ASSEMBLE a
 GATHER a
+SAVEVALUE a,b
 TERMINATE a</textarea>
                 <button type="submit" id="submit">Подтвердить</button>
                 <form action="https://github.com/AnriTool/GPSStoFlow/blob/main/README.md">
                   <button type="submit">Инфо</button>
               </form>
+              <br><br><br><br><br><br>
+              !Пробелы после блоков - обязательны!<br>
+              Например:<br>
+              не GENERATE(POISSON(1,.83))<br>
+              а GENERATE (POISSON(1,.83))
             </th>
             <th>
                 <canvas id="canvas" style="background: #F0F0F0;" >

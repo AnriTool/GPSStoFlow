@@ -7,46 +7,23 @@ window.onload = function() {
     var text1 = ""
     var y = 0;
     var images = []
-    function preload() {
-        for (var i = 0; i < arguments.length; i++) {
+    var keywords =[];
+
+    function preloadOne(src, i) {
             images[i] = new Image();
-            images[i].src = preload.arguments[i];
+            images[i].src = src;
         }
-    }
     
-    preload(
-        "./images/ADVANCE.png",
-        "./images/DEPART.png",
-        "./images/ENTER.png",
-        "./images/GENERATE.png",
-        "./images/TERMINATE.png",
-        "./images/QUEUE.png",
-        "./images/SEIZE.png",
-        "./images/RELEASE.png",
-        "./images/LEAVE.png",
-        "./images/ASSIGN.png",
-        "./images/PRIORITY.png",
-        "./images/TRANSFER.png",
-        "./images/SELECT.png",
-        "./images/TEST.png",
-        "./images/ASSEMBLE.png",
-        "./images/MATCH.png",
-        "./images/GATHER.png",
-        "./images/SPLIT.png",
-        "./images/MARK.png"
-    )
-
-
-
-    keywords = ["GENERATE","TERMINATE","QUEUE","DEPART","ADVANCE","SEIZE","RELEASE","ENTER","LEAVE","TRANSFER","PRIORITY","ASSIGN",
-                 "SELECT","TEST","SPLIT","GATHER","ASSEMBLE","MATCH","MARK"]
+    for(i = 0; i < BLOCKS.length; i++){
+        keywords[i] = BLOCKS[i].name
+        preloadOne("./images/"+BLOCKS[i].name+".png",i)
+    }
 
     let display = document.querySelector('#textarea'); // Инициализировал и присвоил переменной элемент textarea 
 
     if(display) {
         display.addEventListener('change',drawFromText, false)
     }
-
 
     function resizeCanvas() {
     canvas.width = window.innerWidth/1.5;
@@ -64,262 +41,140 @@ window.onload = function() {
         drawFromText();
       }
 
-    document.querySelector("#textarea").onchange = function(){
-        y = 0;
-        drawFromText();
-      }
-
 
     function drawFromText(){
         text1 = document.getElementById('textarea').value; 
+        splits = text1.split(/\r?\n/);
+        tmp_image = new Image()
+        words = []
+        height = 10;
         
-        //refil
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fill();
-        
-
-        //делю на строки
-        var splits = text1.split(/\r?\n/);
-        
-        var resize = 10
-        size_elem = new Image()
-        for(let i =0; i< splits.length; i++){
-            var words = splits[i].split(" ")
-            if(words[0] == '')
-                words[1] = " "
-            if (keywords.includes(words[0].toUpperCase())){
-                size_elem.src = "./images/"+words[0].toUpperCase()+".png"
-                resize += size_elem.height
+        //Обрезка строк на слова + измненение размера canvas
+        for(i = 0; i < splits.length;i++){
+            words[i] = splits[i].split(/[\s\t]+/)
+            if(words[i][0] =='' && words[i][1] == undefined)
+                continue;
+            if(keywords.includes(words[i][0].toUpperCase())){
+                tmp_image.src ="./images/"+words[i][0].toUpperCase()+".png"
+                height += tmp_image.height
             }
-            else if(keywords.includes(words[1].toUpperCase())){
-                context.fillText(words[0], 103, y)
-                resize += 40
-                size_elem.src = "./images/"+words[1].toUpperCase()+".png"
-                resize += size_elem.height 
+            else if(keywords.includes(words[i][1].toUpperCase())){
+                tmp_image.src ="./images/"+words[i][1].toUpperCase()+".png"
+                height += tmp_image.height + 40
             }
-            else
-                
-                resize += 40
-              
+            else height += 40;
+           
         }
-        canvas.height = resize;
-        delete(size_elem);
-        elem = new Image();
-        //Заполнение canvas
+        canvas.height = height;
 
-        for(let i =0; i< splits.length; i++){
-            var words = splits[i].split(" ")
-            if(words[0] == '')
-                words[1] = " "
-            //Заполнение если встетиолось ключевое слово
-            if (keywords.includes(words[0].toUpperCase())){
-                elem.src = "./images/"+words[0].toUpperCase()+".png"
-                context.drawImage(elem,100,y)
-                drawParams(words,0,elem)
-                y += elem.height 
+        //Изображение блоков
+        for(i = 0; i < words.length;i++){
+            if(words[i][0] =='' && words[i][1] == undefined)
+                continue;
+            if(keywords.includes(words[i][0].toUpperCase())){
+                tmp_image.src ="./images/"+words[i][0].toUpperCase()+".png"
+                context.drawImage(tmp_image,100,y)
+                drawParams(words[i])
+                y += tmp_image.height
             }
-            //Заполнение если первое слово - Метка, а второе - ключевое
-            else if(keywords.includes(words[1].toUpperCase())){
-
+            else if(keywords.includes(words[i][1].toUpperCase())){
+                tmp_image.src ="./images/"+words[i][1].toUpperCase()+".png"
                 context.textAlign = "start";
                 context.font = "14px Tahoma"
                 y += 20
-                context.fillText(words[0], 103, y)
+                context.fillText(words[i][0], 103, y)
                 y += 20
-                elem.src = "./images/"+words[1].toUpperCase()+".png"
-                
-                context.drawImage(elem,100,y)
-                drawParams(words,1,elem)
-                y += elem.height 
+                context.drawImage(tmp_image,100,y)
+                drawParams(words[i].slice(1))
+                y += tmp_image.height 
             }
             else {
                 context.textAlign = "start";
                 context.font = "14px Tahoma"
                 y += 20
-                context.fillText(words[0], 103, y)
+                context.fillText(words[i][0], 103, y)
                 y += 20
             }
-            
-            
         }
-        delete(elem)
-
     }
     
 
-    function drawParams(words,offset,elem){
-                
-                switch(words[0+offset].toUpperCase()){
-                    case "GENERATE":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        if  (words.length > 1)
-                            context.fillText(words[1+offset], 164, y + elem.height/1.5);
-                        break;
-
-                    
-                    case "TERMINATE":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        if  (words.length > 1+offset)
-                            context.fillText(words[1+offset], 217, y + elem.height/2 - 6)
-                        break;
-
-                    case "QUEUE":
-                        var params = words[1+offset].split(",")
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(params[0], 225, y + 36)
-                        if (params.length > 1){
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[1], 164, y + elem.height/2)}
-                        break;
-
-                    case "DEPART":
-                        var params = words[1+offset].split(",")
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(params[0], 225, y + 17)
-                        if (params.length > 1){
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[1], 164, y + elem.height/2)}
-                        break;
-
-                    case "RELEASE":
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(words[1+offset], 228, y + 9)    
-                        break;
-
-                    case "SEIZE":
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(words[1+offset], 228, y + 44)    
-                        break;
-
-                    case "ADVANCE":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 164, y + elem.height/2)  
-                        break;
-
-                    case "ENTER":
-                        var params = words[1+offset].split(",")
-                        console.log(params)
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(params[0], 225, y + 41)
-                        if (params.length > 1){
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[1], 164, y + elem.height/2)}
-                        break;
-                    
-                    case "LEAVE":
-                        var params = words[1+offset].split(",")
-                        context.font = "10px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(params[0], 225, y + 12)
-                        if (params.length > 1){
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[1], 164, y + elem.height/2)}
-                        break;
-                    
-                    case "TRANSFER":
-                        var params = words[1+offset].split(/[\s,]+/)
-                        if (params[2+offset] == undefined){
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[0], 164, y + elem.height/2)
-                            context.textAlign = "start";
-                            context.fillText(params[1], 225, y + elem.height/2 - 20)
-                        }
-                        else    {
-                            context.font = "14px Tahoma"
-                            context.textAlign = "center";
-                            context.fillText(params[0], 164, y + elem.height/2)
-                            context.textAlign = "start";
-                            context.fillText(params[2], 225, y + elem.height/2 - 20)
-                            context.textAlign = "end";
-                            context.fillText(params[1], 155, y + elem.height - 10)
-                        }
-                        break;
-
-                    case "PRIORITY":
-                        context.font = "12px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 162, y + 12)
-                        break;
-
-                    case "ASSIGN":
-                        context.font = "12px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 162, y + 12)
-                        break;
-                    
-                    case "SELECT":
-                        console.log(words)
-                        context.font = "12px Tahoma"
-                        context.textAlign = "end";
-                        context.fillText( words[1+offset], 122, y + 26)
-                        var params = words[2+offset].split(",")
-                        context.font = "12px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[2+offset], 164, y + elem.height/2)
-                        console.log(params)
-                        context.textAlign = "start";
-                        context.fillText(params[5], 260, y + elem.height/4)
-                        break;
-
-                    case "TEST":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText( words[1+offset], 164, y + elem.height/3 - 6)
-                        var params = words[2+offset].split(",")
-                        context.font = "14px Tahoma"
-                        context.textAlign = "end";
-                        context.fillText(params[0], 138, y + elem.height/7)
-                        context.textAlign = "start";
-                        context.fillText(params[1], 192, y + elem.height/7)
-                        context.textAlign = "start";
-                        context.fillText(params[2], 242, y + elem.height/2 - 20)
-                        break;
-
-                    case "MATCH":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(words[1+offset], 208, y + elem.height/2 - 8)
-                        break;
-
-                    case "ASSEMBLE":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 162, y + 10)
-                        break;
-
-                    case "SPLIT":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 162, y + elem.height/2 + 3 )
-                        break;
-
-                    case "GATHER":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "center";
-                        context.fillText(words[1+offset], 162, y + elem.height/2 + 3 )
-                        break;
+    function drawParams(words){
+        console.log(words)
+        BLOCKS.forEach((elem) =>{
+            if (elem.name == words[0].toUpperCase())
+                if(elem.unique!= true){
+                    if (elem.params.length == 1){
+                        context.font = elem.params[0].font
+                        context.textAlign = elem.params[0].align
+                        if(words[1] != undefined) 
+                            context.fillText(words[1],elem.params[0].x,y +elem.params[0].y)
+                    }
+                    else {
+                        params = words[1].split(',')
+                        for(j = 0; j < elem.params.length; j++){
                         
-                    case "MARK":
-                        context.font = "14px Tahoma"
-                        context.textAlign = "start";
-                        context.fillText(words[1+offset], 226, y + elem.height/3  )
-                        break;
-                    
+                            context.font = elem.params[j].font
+                            context.textAlign = elem.params[j].align
+                            if(params[j] != undefined) 
+                                context.fillText(params[j],elem.params[j].x,y +elem.params[j].y)
+                        }
+                    }
                 }
-            }
-        
+                else{
+                    if(elem.name == "TEST"){
+                        context.font = elem.params[0].font
+                        context.textAlign = elem.params[0].align
+                        context.fillText(words[1],elem.params[0].x,y +elem.params[0].y)
+                        params = words[2].split(',')
+                        for(j = 1; j < elem.params.length; j++){
+                            context.font = elem.params[j].font
+                            context.textAlign = elem.params[j].align
+                            if(params[j-1] != undefined) 
+                                context.fillText(params[j-1],elem.params[j].x,y +elem.params[j].y)
+                        }
+                    }
+                    if(elem.name == "SELECT"){
+                        context.font = elem.params[0].font
+                        context.textAlign = elem.params[0].align
+                        context.fillText(words[1],elem.params[0].x,y +elem.params[0].y)
+                        context.font = elem.params[1].font
+                        context.textAlign = elem.params[1].align
+                        context.fillText(words[2],elem.params[1].x,y +elem.params[1].y)
+                        params = words[2].split(',')
+                        context.font = elem.params[2].font
+                        context.textAlign = elem.params[2].align
+                        context.fillText(params[5],elem.params[2].x,y +elem.params[2].y)
+                    }
+                    if(elem.name == "TRANSFER"){
+                        params = words[1].split(',')
+                        if(params[2] == undefined){
+                            context.font = elem.params[0].font
+                            context.textAlign = elem.params[0].align
+                            context.fillText(params[0],elem.params[0].x,y +elem.params[0].y)
 
+                            context.font = elem.params[1].font
+                            context.textAlign = elem.params[1].align
+                            context.fillText(params[1],elem.params[1].x,y +elem.params[1].y)
+                            context.clearRect(150, y+85, 20, 25);
+                            
+                        }
+                        else{
+                            context.font = elem.params[2].font
+                            context.textAlign = elem.params[2].align
+                            context.fillText(params[0],elem.params[2].x,y +elem.params[2].y)
+                            
+                            context.font = elem.params[3].font
+                            context.textAlign = elem.params[3].align
+                            context.fillText(params[1],elem.params[3].x,y +elem.params[3].y)
+
+                            context.font = elem.params[4].font
+                            context.textAlign = elem.params[4].align
+                            context.fillText(params[2],elem.params[4].x,y +elem.params[4].y)
+                        }
+                    }
+                }
+        })
+    
+    } 
 }
