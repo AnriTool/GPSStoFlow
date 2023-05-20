@@ -144,7 +144,12 @@ window.onload = function() {
                         params = words[2].split(',')
                         context.font = elem.params[2].font
                         context.textAlign = elem.params[2].align
-                        context.fillText(params[5],elem.params[2].x,y +elem.params[2].y)
+                        if(params[5] != undefined) 
+                            context.fillText(params[5],elem.params[2].x,y +elem.params[2].y)
+                        else 
+                            context.clearRect(248, y+10, 25, 25);
+
+                        
                     }
                     if(elem.name == "TRANSFER"){
                         params = words[1].split(',')
