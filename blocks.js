@@ -1,5 +1,41 @@
 const BLOCKS =
-    [
+    [   
+        {
+            "name":"RETURN",
+            "params":[
+                {
+                    "x":170,
+                    "y": 30,
+                    "font": "10px Tahoma",
+                    "align":"start"
+    
+                }
+            ]
+            }, 
+        {
+            "name":"PREEMPT",
+            "params":[
+                {
+                    "x":170,
+                    "y": 40,
+                    "font": "10px Tahoma",
+                    "align":"start"
+    
+                }
+            ]
+            },    
+        {
+            "name":"GATESNF",
+            "params":[
+                {
+                    "x":164,
+                    "y": 50,
+                    "font": "14px Tahoma",
+                    "align":"center"
+    
+                }
+            ]
+            },
         {
             "name":"GENERATE",
             "params":[
