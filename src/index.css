@@ -1,4 +1,34 @@
+body {
+    font-family: Tahoma, serif;
+}
+
+.download {
+    font-size:      14px;
+    font-weight:    100;
+    display:        flex;
+    gap:            5px;
+    flex-direction: column;
+    margin:         10px;
+    padding:        10px;
+    border:         1px solid;
+}
+
+.info {
+    margin:  10px;
+    padding: 10px;
+    border:  1px solid;
+
+}
+
 .gpss-block {
-    display: flex;
-    background: bisque;
+    display:     flex;
+    position:    relative;
+    font-weight: lighter;
+    width:       fit-content;
+}
+
+.gpss-param {
+    position:    absolute;
+    font-weight: lighter;
+    margin:      0;
 }

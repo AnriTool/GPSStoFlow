@@ -15,6 +15,7 @@ export default defineConfig({
 		sourcemap: true,
 		assetsInlineLimit: 4096 * 10,
 	},
+	assetsInclude: ['**/*.png'],
 	plugins: [
 		// viteStaticCopy({
 		// 	targets: [

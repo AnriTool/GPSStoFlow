@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 	<meta charset="utf-8">
-	<script src="./script.js"></script>
-	<script src="./blocks.js"></script>
+<!--	<script src="./script.js"></script>-->
+<!--	<script src="./blocks.js"></script>-->
 	<script type="module" src="src/main.ts"></script>
 	<link rel="icon" href="images/ava_pixel.ico" type="image/x-icon">
 	<link rel="stylesheet" href="src/index.css">
@@ -17,28 +17,43 @@
 
 			<textarea id="textarea" style=" width: 95%; min-height: 400px; min-width: 95%; max-width: 95%" >
 			</textarea>
-			<button type="submit" id="submit">
-				Подтвердить
+			<button type="submit" id="draw">
+				Draw
 			</button>
-			<button type="submit" id="submit2">
-				Подтвердить2
-			</button>
-			<form action="https://github.com/AnriTool/GPSStoFlow/blob/main/README.md">
-				<button type="submit">
-					Инфо
-				</button>
-			</form>
-			<br><br><br><br><br><br>
-			!Пробелы после блоков - обязательны!<br>
-			Например:<br>
-			не GENERATE(POISSON(1,.83))<br>
-			а GENERATE (POISSON(1,.83))
+
+
+			<div class="download">
+				<div>
+					<label for="background">Background</label>
+					<input type="checkbox" id="background" name="background" checked>
+				</div>
+				<div>
+					<label for="fileName">File name</label>
+					<input type=text id="fileName" name="fileName" placeholder="gpssDiagram" >
+				</div>
+				<div>
+					<button type="submit" id="download">
+						Download
+					</button>
+				</div>
+			</div>
+
+			<div class="info">
+				<form action="https://github.com/AnriTool/GPSStoFlow/blob/main/README.md">
+					<button type="submit">
+						Info
+					</button>
+				</form>
+				<div>
+					!Пробелы после блоков - обязательны!<br>
+					Например:<br>
+					не GENERATE(POISSON(1,.83))<br>
+					а GENERATE (POISSON(1,.83))
+				</div>
+			</div>
+
 		</th>
-		<th>
-			<canvas id="canvas" style="background: #F0F0F0;" >
-			</canvas>
-		</th>
-		<th>
+		<th style="display: flex; justify-content: center" id="diagramTable">
 			<div id="diagram">
 			</div>
 		</th>
