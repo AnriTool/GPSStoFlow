@@ -10,7 +10,7 @@ export default defineConfig({
 	},
 	base: './',
 	build: {
-		outDir: '../dist',
+		outDir: './dist',
 		emptyOutDir: true,
 		sourcemap: true,
 		assetsInlineLimit: 4096 * 10,
