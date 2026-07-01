@@ -17,8 +17,8 @@ export class GpssParser {
 				continue
 			}
 
-			let type     = tokens[0].toUpperCase();
-			let postType = tokens[1].toUpperCase();
+			let type     = (tokens[0] ? tokens[0].toUpperCase() : undefined);
+			let postType = (tokens[1] ? tokens[1].toUpperCase() : undefined);
 
 			if (!gpssBlocks[type] && gpssBlocks[postType]) {
 				blocks.push({type:'LABEL', params: [type]})

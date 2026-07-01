@@ -22,6 +22,10 @@ export class Terminate {
 		imgEl.src   = <string>image;
 		gpssBlock.appendChild((imgEl));
 
+		if (!this.params) {
+			return gpssBlock;
+		}
+
 		const paramBlock     = document.createElement('p');
 		paramBlock.innerText = this.params;
 		paramBlock.className = 'gpss-param';
