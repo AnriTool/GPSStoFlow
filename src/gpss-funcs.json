@@ -1,0 +1,22 @@
+[
+  "GENERATE",
+  "TERMINATE",
+  "ADVANCE",
+  "QUEUE",
+  "DEPART",
+  "SEIZE",
+  "RELEASE",
+  "ENTER",
+  "LEAVE",
+  "TRANSFER",
+  "MARK",
+  "PRIORITY",
+  "ASSIGN",
+  "SELECT",
+  "TEST",
+  "SPLIT",
+  "MATCH",
+  "ASSEMBLE",
+  "GATHER",
+  "SAVEVALUE"
+]
