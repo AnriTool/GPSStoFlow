@@ -1,12 +1,17 @@
+import {AbstractBlock} from '../abstractBlock';
+
 const paramOptions = {
 	fontSize: 14,
 	padding: 16,
 };
 
-export class Label {
+export class Label extends AbstractBlock {
+	protected blockHeight = 20;
+
 	protected params;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		[this.params] = params;
 	}
 

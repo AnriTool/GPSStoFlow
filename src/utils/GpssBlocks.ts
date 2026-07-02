@@ -20,12 +20,9 @@ import {Gather} from '../blocks/gather/gather';
 import {SaveValue} from '../blocks/savevalue/saveValue';
 import {Label} from '../blocks/label/label';
 import {Text} from '../blocks/text/text';
+import type {AbstractBlock} from '../blocks/abstractBlock';
 
-interface Block {
-	getHtml(): HTMLElement;
-}
-
-type BlockConstructor = new (params: string[]) => Block;
+type BlockConstructor = new (params: string[]) => AbstractBlock;
 
 export const gpssBlocks: Record<string, BlockConstructor>  = {
 	GENERATE: Generate,

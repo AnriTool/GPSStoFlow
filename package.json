@@ -1,6 +1,6 @@
 {
   "name": "gpss-to-flow",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "GPSS Flowcharts",
   "keywords": [
     "GPSS",
@@ -25,8 +25,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@antv/x6": "^3.1.7",
     "@types/node": "^26.0.1",
-    "html-to-image": "^1.11.13",
+    "modern-screenshot": "^4.7.0",
+    "tslib": "^2.8.1",
     "typescript": "^6.0.3",
     "vite": "^8.1.0"
   }

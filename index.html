@@ -15,11 +15,23 @@
 	<tr>
 		<th width="30%" valign="top">
 
-			<textarea id="textarea" style=" width: 95%; min-height: 400px; min-width: 95%; max-width: 95%" >
-			</textarea>
-			<button type="submit" id="draw">
-				Draw
-			</button>
+			<div>
+				<textarea id="textarea" style=" width: 95%; min-height: 400px; min-width: 95%; max-width: 95%" >
+				</textarea>
+				<button type="submit" id="draw">
+					Draw
+				</button>
+				<form id="version">
+					<label>
+						<input type="radio" name="version" value="antV" checked>
+						AntV
+					</label>
+					<label>
+						<input type="radio" name="version" value="default" >
+						Default
+					</label>
+				</form>
+			</div>
 
 
 			<div class="download">
@@ -54,7 +66,9 @@
 
 		</th>
 		<th style="display: flex; justify-content: center" id="diagramTable">
-			<div id="diagram">
+			<div id="diagram" hidden>
+			</div>
+			<div id="antVdiagram" style="height: 90vh">
 			</div>
 		</th>
 	</tr>

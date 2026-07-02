@@ -1,5 +1,7 @@
 import image from './image.png'
+import imageNoArrow from './imageNoArrow.png'
 import {TRANSFORM_CENTER, TRANSFORM_TO_LEFT} from '../../utils/StyleHelper';
+import {AbstractBlock} from '../abstractBlock';
 
 const operationParamOption = {
 	x: 63,
@@ -25,13 +27,16 @@ const pathParamOption = {
 	fontSize: 14,
 };
 
-export class Test {
+export class Test extends AbstractBlock {
+	protected blockHeight = 85;
+
 	protected fstParam;
 	protected scndParam;
 	protected operationParam;
 	protected pathParam;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		this.operationParam                             = params[0];
 		[this.fstParam, this.scndParam, this.pathParam] = (params[1] ? params[1].split(',') : []);
 	}
@@ -41,7 +46,7 @@ export class Test {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 		const operationBlock     = document.createElement('p');

@@ -1,5 +1,7 @@
 import image from './image.png'
+import imageNoArrow from  './imageNoArrow.png'
 import {TRANSFORM_CENTER, TRANSFORM_TO_LEFT} from '../../utils/StyleHelper';
+import {AbstractBlock} from '../abstractBlock';
 
 const chanceParamOptions = {
 	x: 63,
@@ -19,13 +21,18 @@ const pathBottomParamOptions = {
 	fontSize: 14
 };
 
-export class Transfer {
+export class Transfer extends AbstractBlock {
+	protected blockHeight = 85;
+
 	protected chanceParam;
 	protected path1Param;
 	protected path2Param;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		[this.chanceParam, this.path1Param, this.path2Param] = params[0].split(',');
+
+		this.branching = [this.path1Param, this.path2Param];
 	}
 
 	public getHtml():HTMLElement {
@@ -33,7 +40,7 @@ export class Transfer {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 		const chanceParamBlock     = document.createElement('p');
@@ -60,7 +67,7 @@ export class Transfer {
 
 			gpssBlock.appendChild(pathRightParamBlock);
 
-			imgEl.style.clipPath = 'inset(-1px 0 25px 0)';
+			// imgEl.style.clipPath = 'inset(-1px 0 25px 0)';
 
 			return gpssBlock;
 		}
