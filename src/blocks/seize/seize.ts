@@ -1,4 +1,6 @@
 import image from './image.png'
+import imageNoArrow from './imageNoArrow.png'
+import {AbstractBlock} from '../abstractBlock';
 
 const paramOptions = {
 	x: 128,
@@ -6,10 +8,13 @@ const paramOptions = {
 	fontSize: 10,
 };
 
-export class Seize {
+export class Seize extends AbstractBlock {
+	protected blockHeight = 46;
+
 	protected param;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		[this.param] = params;
 	}
 
@@ -18,7 +23,7 @@ export class Seize {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 		const paramBlock     = document.createElement('p');

@@ -1,5 +1,7 @@
 import image from './image.png'
+import imageNoArrow from './imageNoArrow.png'
 import {TRANSFORM_CENTER} from '../../utils/StyleHelper';
+import {AbstractBlock} from '../abstractBlock';
 
 const sizeParamOptions = {
 	x: 63,
@@ -13,11 +15,14 @@ const nameParamOptions = {
 	fontSize: 10,
 };
 
-export class Enter {
+export class Enter extends AbstractBlock {
+	protected blockHeight = 46;
+
 	protected paramSize;
 	protected paramName;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		[this.paramName, this.paramSize] = params[0].split(',');
 	}
 
@@ -26,7 +31,7 @@ export class Enter {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 

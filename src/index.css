@@ -31,4 +31,5 @@ body {
     position:    absolute;
     font-weight: lighter;
     margin:      0;
+    white-space: nowrap
 }

@@ -1,5 +1,7 @@
 import image from './image.png'
+import imageNoArrow from './imageNoArrow.png'
 import {TRANSFORM_CENTER} from '../../utils/StyleHelper';
+import {AbstractBlock} from '../abstractBlock';
 
 const paramOptions = {
 	x: 112,
@@ -7,10 +9,13 @@ const paramOptions = {
 	fontSize: 14,
 };
 
-export class Terminate {
+export class Terminate extends AbstractBlock {
+	protected blockHeight = 109;
+
 	protected params;
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		[this.params] = params;
 	}
 
@@ -19,7 +24,7 @@ export class Terminate {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 		if (!this.params) {

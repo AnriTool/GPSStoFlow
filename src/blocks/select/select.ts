@@ -1,5 +1,7 @@
 import image from './image.png'
+import imageNoArrow from './imageNoArrow.png'
 import {TRANSFORM_CENTER, TRANSFORM_TO_LEFT} from '../../utils/StyleHelper';
+import {AbstractBlock} from '../abstractBlock';
 
 
 const paramOptions = {
@@ -20,16 +22,21 @@ const pathParamOption = {
 	fontSize: 14,
 };
 
-export class Select {
+export class Select extends AbstractBlock {
+	protected blockHeight = 46;
+
 	protected param;
 	protected operationParam;
 	protected pathParam;
 
 
-	constructor(params: string[]) {
+	constructor(params: string[], antV:boolean = false) {
+		super(antV);
 		this.operationParam = params[0];
 		this.param          = params[1];
 		this.pathParam      = (params[1] ? params[1].split(',')[5] : undefined);
+
+		this.branching = [this.pathParam];
 	}
 
 	public getHtml():HTMLElement {
@@ -37,7 +44,7 @@ export class Select {
 		gpssBlock.className = 'gpss-block';
 
 		const imgEl = document.createElement("img")
-		imgEl.src   = <string>image;
+		imgEl.src   = <string>(this.antV ? imageNoArrow : image);
 		gpssBlock.appendChild((imgEl));
 
 		const paramBlock     = document.createElement('p');
@@ -65,7 +72,7 @@ export class Select {
 		gpssBlock.appendChild(operationBlock);
 
 		if (!this.pathParam) {
-			imgEl.style.clipPath = 'inset(0 25px 0 -1px)';
+			// imgEl.style.clipPath = 'inset(0 25px 0 -1px)';
 
 			return gpssBlock;
 		}
